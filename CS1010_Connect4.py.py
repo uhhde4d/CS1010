@@ -41,32 +41,32 @@ def get_next_open_row(board, col):
 
 def print_board(board):
 	print(np.flip(board, 0))
-
+# movements in the board
 def winning_move(board, piece):
-	# Check horizontal locations for win
+	# horizontal locations for win
 	for c in range(COLUMN_COUNT-3):
 		for r in range(ROW_COUNT):
 			if board[r][c] == piece and board[r][c+1] == piece and board[r][c+2] == piece and board[r][c+3] == piece:
 				return True
 
-	# Check vertical locations for win
+	# vertical locations for win
 	for c in range(COLUMN_COUNT):
 		for r in range(ROW_COUNT-3):
 			if board[r][c] == piece and board[r+1][c] == piece and board[r+2][c] == piece and board[r+3][c] == piece:
 				return True
 
-	# Check positively sloped diaganols
+	# positively sloped 
 	for c in range(COLUMN_COUNT-3):
 		for r in range(ROW_COUNT-3):
 			if board[r][c] == piece and board[r+1][c+1] == piece and board[r+2][c+2] == piece and board[r+3][c+3] == piece:
 				return True
 
-	# Check negatively sloped diaganols
+	# negatively sloped 
 	for c in range(COLUMN_COUNT-3):
 		for r in range(3, ROW_COUNT):
 			if board[r][c] == piece and board[r-1][c+1] == piece and board[r-2][c+2] == piece and board[r-3][c+3] == piece:
 				return True
-
+# for calculating the moves
 def evaluate_window(window, piece):
 	score = 0
 	opp_piece = PLAYER_PIECE
@@ -88,26 +88,26 @@ def evaluate_window(window, piece):
 def score_position(board, piece):
 	score = 0
 
-	## Score center column
+	# score center column
 	center_array = [int(i) for i in list(board[:, COLUMN_COUNT//2])]
 	center_count = center_array.count(piece)
 	score += center_count * 3
 
-	## Score Horizontal
+	# score horizontal
 	for r in range(ROW_COUNT):
 		row_array = [int(i) for i in list(board[r,:])]
 		for c in range(COLUMN_COUNT-3):
 			window = row_array[c:c+WINDOW_LENGTH]
 			score += evaluate_window(window, piece)
 
-	## Score Vertical
+	# score vertical
 	for c in range(COLUMN_COUNT):
 		col_array = [int(i) for i in list(board[:,c])]
 		for r in range(ROW_COUNT-3):
 			window = col_array[r:r+WINDOW_LENGTH]
 			score += evaluate_window(window, piece)
 
-	## Score posiive sloped diagonal
+	# score positive sloped diagonal
 	for r in range(ROW_COUNT-3):
 		for c in range(COLUMN_COUNT-3):
 			window = [board[r+i][c+i] for i in range(WINDOW_LENGTH)]
@@ -266,7 +266,7 @@ while not game_over:
 					draw_board(board)
 
 
-	# # Ask for Player 2 Input
+	# to ask for opponent's input
 	if turn == AI and not game_over:				
 
 		#col = random.randint(0, COLUMN_COUNT-1)
