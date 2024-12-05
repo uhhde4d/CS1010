@@ -3,18 +3,21 @@ import random
 import pygame
 import sys
 import math
+#we installed the numpy and pygame libraries
 
 BLUE = (0,0,255)
 BLACK = (0,0,0)
 RED = (255,0,0)
 YELLOW = (255,255,0)
+"""red and yellow equals circles in pygame and black is the background,
+and blue is our chart"""
 
 ROW_COUNT = 6
 COLUMN_COUNT = 7
-
+#these variables were assigned how many rows and columns we wanted
 PLAYER = 0
 AI = 1
-
+#player is for the participant and ai is the opponent
 EMPTY = 0
 PLAYER_PIECE = 1
 AI_PIECE = 2
@@ -288,3 +291,4 @@ while not game_over:
 
 	if game_over:
 		pygame.time.wait(3000)
+		# when the game is over it will for 3 seconds until it restarts
